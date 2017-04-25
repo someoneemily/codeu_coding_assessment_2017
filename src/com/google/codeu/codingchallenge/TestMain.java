@@ -72,7 +72,6 @@ final class TestMain {
 
           final JSONParser parser = factory.parser();
           final JSON obj = parser.parse("{ \"name\":{\"first\":\"sam\", \"last\":\"doe\" }, \"name\":\"sam doe\" , \"name\":{\"first\":\"sam\", \"last\":\"doe\" } }");
-        //  final JSON obj2 = ((MyJSONParser)parser).parse1("{ \"name\":{\"first\":\"sam\", \"last\":\"doe\" }, \"name\":\"sam doe\" , \"name\":{\"first\":\"sam\", \"last\":\"doe\" } }");
           final JSON nameObj = obj.getObject("name");
 
           Asserts.isNotNull(nameObj);

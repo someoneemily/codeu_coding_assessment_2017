@@ -22,7 +22,6 @@ import static java.lang.System.*;
 
 final class MyJSONParser implements JSONParser {
 //{ \"name\":{\"first\":\"sam\", \"last\":\"doe\" } }
-// \"name\"    :    {\"first\":\"sam\", \"last\":\"doe\" }
 //test case: { \"name\":{\"first\":\"sam\", \"last\":\"doe\" }, \"name\":\"sam doe\" , \"name\":{\"first\":\"sam\", \"last\":\"doe\" } }
   @Override
   public JSON parse(String in) throws IOException {
@@ -30,16 +29,12 @@ final class MyJSONParser implements JSONParser {
 	  JSON temp = new MyJSON();
 	  String data = in.substring(in.indexOf("{")+1, in.lastIndexOf("}")).trim();
 	  if(data.indexOf(":")>=0){
-		  //out.println("1"+data);
 		  int begin = 0;
 		  int separatein = 0;
 		  while(separatein<data.length() && data.indexOf(",", separatein)>0){
-			  //out.println(begin+" "+separatein);
 			  if(data.charAt(separatein)==','){
-				 // out.println(begin+" " +separatein);
 				  //evaluate as key-pair: data.substring(begin, separatein).trim()
 				  String keypair = data.substring(begin, separatein).trim();
-				  //out.println(keypair);
 				  int colon_index = keypair.indexOf(":");
 				  if(keypair.substring(colon_index+1).trim().indexOf("{")==0){
 					  String key = keypair.substring(0, colon_index).trim();
@@ -54,13 +49,11 @@ final class MyJSONParser implements JSONParser {
 			  }
 			  if(data.charAt(separatein)=='{'){
 				  separatein = indexOfPair(data, separatein);
-				  //out.println("skip to "+separatein);
 			  }
 			  separatein++;
 		  }
 		  //evaluate as key-pair: data.substring(begin).trim()
 		  String keypair = data.substring(begin).trim();
-		 // out.println("end"+keypair);
 		  int colon_index = keypair.indexOf(":");
 		  if(keypair.substring(colon_index+1).trim().indexOf("{")==0){
 			  String key = keypair.substring(0, colon_index).trim();
