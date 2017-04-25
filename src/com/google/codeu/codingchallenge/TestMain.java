@@ -66,6 +66,21 @@ final class TestMain {
       }
     });
 
+    tests.add("Object Value1", new Test() {
+        @Override
+        public void run(JSONFactory factory) throws Exception {
+
+          final JSONParser parser = factory.parser();
+          final JSON obj = parser.parse("{ \"name\":{\"first\":\"sam\", \"last\":\"doe\" }, \"name\":\"sam doe\" , \"name\":{\"first\":\"sam\", \"last\":\"doe\" } }");
+        //  final JSON obj2 = ((MyJSONParser)parser).parse1("{ \"name\":{\"first\":\"sam\", \"last\":\"doe\" }, \"name\":\"sam doe\" , \"name\":{\"first\":\"sam\", \"last\":\"doe\" } }");
+          final JSON nameObj = obj.getObject("name");
+
+          Asserts.isNotNull(nameObj);
+          Asserts.isEqual("sam", nameObj.getString("first"));
+          Asserts.isEqual("doe", nameObj.getString("last"));
+        }
+    });
+
     tests.run(new JSONFactory(){
       @Override
       public JSONParser parser() {
